@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{%block titulo%}{{user}} | {%endblock%}
+
+{% block conteudo %}
+
+{% include 'parciais/_messages.html' %}
+
+<div class="mb-4 mt-4 row">
+    <h1>Olá, {{ user }}</h1>
+    <a class="ml-auto" href="{% url 'logout' %}"><button class="btn btn-md btn-danger">Sair</button></a>
+</div>
+
+<div class="container">
+    <form method="POST" action="{%url 'dashboard'%}" enctype="multipart\form-data">
+        {% csrf_token %}
+        <table class="table">
+            {{ form }}
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+{% endblock %}

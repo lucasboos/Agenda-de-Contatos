@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{%block titulo%}Login | {%endblock%}
+{% load static %}
+{% block conteudo %}
+<link href="../../static/style.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <h3 class="mt-1">Entrar</h3>
+        {% if not user.is_authenticated %}
+        {% include 'parciais/_messages.html' %}
+        <!-- Login Form -->
+        <form class="mt-3" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input name="usuario" type="text" id="login" value="{{request.POST.usuario}}" class="fadeIn first"
+                placeholder="Usuário">
+            <input name="senha" type="text" id="login" class="fadeIn second" placeholder="Senha">
+            <input type="submit" class="fadeIn third" value="Entrar">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" style="text-decoration: none;" href="{% url 'register' %}">Não têm uma conta?
+                Cadastre-se</a>
+        </div>
+
+        {% else %}
+        <h1><a href="{% url 'logout' %}">Sair</a></h1>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

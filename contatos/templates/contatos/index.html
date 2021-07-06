@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+{% if 'accounts' not in request.path %}
+<br><br>
+<form method="get" action="{% url 'busca' %}">
+    <div class="form-group row">
+        <div class="col-12">
+            <input class="form-control" type="search" value="{{ request.GET.termo }}" id="search-input"
+                placeholder="Buscar contato..." name="termo">
+
+            {% include 'parciais/_messages.html' %}
+        </div>
+    </div>
+</form>
+{% endif %}
+
+<h1 class="mt-5">Minha agenda</h1>
+
+{% if not user.is_authenticated %}
+<span>Para adicionar novos contatos entre com sua conta.</span>
+{% endif %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Telefone</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contato in contatos %}
+        <tr>
+            <td>
+                <a href="{% url 'ver_contato' contato.id  %}">{{ contato.nome }}</a>
+            </td>
+            <td>{{ contato.sobrenome }}</td>
+            <td>{{ contato.telefone }}</td>
+            <td>{{ contato.email }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% for pagina in contatos.paginator.page_range %}
+        {% if contatos.number == pagina %}
+        <li class="page-item active"><a class="page-link"
+                href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{pagina}}</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{pagina}}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{%block titulo%}Cadastro | {%endblock%}
+{% load static %}
+{% block conteudo %}
+
+<link href="../../static/style.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <h3 class="mt-1">Cadastre-se</h3>
+
+        {% if not user.is_authenticated %}
+        <!-- Register Form -->
+        <form class="mt-3" method="POST" action="{% url 'register' %}">
+            {% include 'parciais/_messages.html' %}
+            {% csrf_token %}
+            <input name="usuario" type="text" id="login" value="{{request.POST.usuario}}" class="fadeIn first"
+                placeholder="Usuário">
+            <input name="email" type="text" id="email" value="{{request.POST.email}}" class="fadeIn second"
+                placeholder="Email">
+            <input name="senha" type="text" id="login" class="fadeIn third" placeholder="Senha">
+            <input type="submit" class="fadeIn fourth" value="Criar conta">
+        </form>
+
+        {% else %}
+        <h1><a href="{% url 'logout' %}">Sair</a></h1>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
