@@ -2,20 +2,28 @@
 A simple Python Web Application using Django.
 
 ## Setup
-```bash
-# Create python venv
+
+**Create the virtual environment**
+```
 python -m venv venv
+```
 
-# Windows venv activate
+**Activate the virtual environment**
+*Windows*
+```
 venv\Scripts\activate
-
-# Linux venv activate
+```
+*Linux / Mac OS*
+```
 source venv/bin/activate
+```
 
-# Install Django
+**Packages installation**
+```
 pip install django
 ```
-## Running
-```bash
+
+**Running**
+```
 python manage.py runserver
 ```
